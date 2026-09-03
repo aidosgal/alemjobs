@@ -21,11 +21,18 @@ export default function AppTabs() {
       <TabSlot style={{ height: '100%' }} />
       <TabList asChild>
         <CustomTabList>
+          {/* @ts-expect-error -- expo-router's typed-routes generator doesn't emit the bare "/" alias for a group's index route, but it is the only href TabTrigger resolves correctly at runtime. */}
           <TabTrigger name="home" href="/" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
           <TabTrigger name="explore" href="/explore" asChild>
             <TabButton>Explore</TabButton>
+          </TabTrigger>
+          <TabTrigger name="chat" href="/chat" asChild>
+            <TabButton>Chat</TabButton>
+          </TabTrigger>
+          <TabTrigger name="profile" href="/profile" asChild>
+            <TabButton>Profile</TabButton>
           </TabTrigger>
         </CustomTabList>
       </TabList>
