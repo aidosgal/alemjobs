@@ -1,15 +1,24 @@
 import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
-
 import { AuthColors, AuthRadius } from '@/constants/auth-theme';
+import { Gilroy } from '@/constants/fonts';
 
 type PillButtonProps = {
   label: string;
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
+  backgroundColor?: string;
+  textColor?: string;
 };
 
-export function PillButton({ label, onPress, disabled, loading }: PillButtonProps) {
+export function PillButton({
+  label,
+  onPress,
+  disabled,
+  loading,
+  backgroundColor = AuthColors.accent,
+  textColor = AuthColors.accentText,
+}: PillButtonProps) {
   const isDisabled = disabled || loading;
 
   return (
@@ -18,13 +27,16 @@ export function PillButton({ label, onPress, disabled, loading }: PillButtonProp
       disabled={isDisabled}
       style={({ pressed }) => [
         styles.button,
+        !isDisabled && { backgroundColor },
         isDisabled && styles.buttonDisabled,
         pressed && !isDisabled && styles.buttonPressed,
       ]}>
       {loading ? (
-        <ActivityIndicator color={AuthColors.accentText} />
+        <ActivityIndicator color={textColor} />
       ) : (
-        <Text style={[styles.label, isDisabled && styles.labelDisabled]}>{label}</Text>
+        <Text style={[styles.label, !isDisabled && { color: textColor }, isDisabled && styles.labelDisabled]}>
+          {label}
+        </Text>
       )}
     </Pressable>
   );
@@ -48,6 +60,7 @@ const styles = StyleSheet.create({
     color: AuthColors.accentText,
     fontSize: 16,
     fontWeight: '700',
+    fontFamily: Gilroy.semibold,
   },
   labelDisabled: {
     color: AuthColors.disabledText,
