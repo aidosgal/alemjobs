@@ -12,7 +12,7 @@ import Animated, {
 const ARM_COUNT = 22;
 const DOTS_PER_ARM = 7;
 const SPIRAL_TURNS = 2;
-const CYCLE_DURATION = 22000;
+const CYCLE_DURATION = 40000;
 const DOT_SIZE = 4;
 
 type Dot = {

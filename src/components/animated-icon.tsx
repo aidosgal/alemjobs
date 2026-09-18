@@ -1,11 +1,15 @@
 import { Image } from 'expo-image';
 import * as SplashScreen from 'expo-splash-screen';
 import { useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Animated, { Easing, Keyframe } from 'react-native-reanimated';
 import { scheduleOnRN } from 'react-native-worklets';
 
-const INITIAL_SCALE_FACTOR = Dimensions.get('screen').height / 90;
+import { SpiralDots } from '@/components/welcome/spiral-dots';
+import { Gilroy } from '@/constants/fonts';
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('screen');
+const INITIAL_SCALE_FACTOR = SCREEN_HEIGHT / 90;
 const DURATION = 600;
 
 export function AnimatedSplashOverlay() {
@@ -33,7 +37,14 @@ export function AnimatedSplashOverlay() {
     },
   });
 
-  const image = <Image style={styles.image} source={require('@/assets/images/expo-logo.png')} />;
+  const content = (
+    <>
+      <View style={styles.dotsLayer}>
+        <SpiralDots width={SCREEN_WIDTH} height={SCREEN_HEIGHT} />
+      </View>
+      <Text style={styles.wordmark}>alem jobs</Text>
+    </>
+  );
 
   return animate ? (
     <Animated.View
@@ -44,7 +55,7 @@ export function AnimatedSplashOverlay() {
         }
       })}
       style={styles.splashOverlay}>
-      {image}
+      {content}
     </Animated.View>
   ) : (
     <View
@@ -54,7 +65,7 @@ export function AnimatedSplashOverlay() {
         });
       }}
       style={styles.splashOverlay}>
-      {image}
+      {content}
     </View>
   );
 }
@@ -140,9 +151,19 @@ const styles = StyleSheet.create({
   },
   splashOverlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: '#208AEF',
+    backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
+  },
+  dotsLayer: {
+    ...StyleSheet.absoluteFill,
+    overflow: 'hidden',
+  },
+  wordmark: {
+    fontFamily: Gilroy.semibold,
+    fontSize: 15,
+    letterSpacing: 4,
+    color: 'rgba(255,255,255,0.85)',
   },
 });

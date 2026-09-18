@@ -36,7 +36,7 @@ export default function WelcomeScreen() {
 
   function handleStart() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.push('/auth/phone');
+    router.push('/');
   }
 
   return (
